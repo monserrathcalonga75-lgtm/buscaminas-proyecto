@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Juego Buscaminas con dos dificultades: Fácil (9x9) y Difícil (16x16) - Catalina Aquino">
+    <title>Buscaminas</title>
+    <link rel="stylesheet" href="css/portada.css">
+</head>
+<body>
+    <div class="bomba bomba-1">💣</div>
+    <div class="bomba bomba-2">💣</div>
+    <div class="bomba bomba-3">💣</div>
+    <div class="bomba bomba-4">💣</div>
+    <div class="bomba bomba-5">💣</div>
+    <div class="bomba bomba-6">💣</div>
+    <div class="bomba bomba-7">💣</div>
+    <div class="bomba bomba-8">💣</div>
+
+    <div class="contenedor">
+        <h1 class="titulo">💣 BUSCAMINAS</h1>
+        <p class="subtitulo">Elegí tu dificultad</p>
+
+        <div class="instrucciones">
+            <p><strong>Clic izquierdo</strong> — Revelar celda</p>
+            <p><strong>Clic derecho</strong> — Colocar bandera 🚩</p>
+            <hr>
+            <p class="instrucciones-detalle">Los <strong>números</strong> indican cuántas minas hay alrededor de esa celda.</p>
+            <p class="instrucciones-detalle">Las <strong>banderas 🚩</strong> sirven para marcar las celdas donde creés que hay una mina. Así evitás hacer clic ahí por error. Se colocan con clic derecho y se quitan con otro clic derecho.</p>
+        </div>
+
+        <div class="botones-dificultad">
+            <div class="btn-dificultad-grupo">
+                <button class="btn-jugar" onclick="window.location.href='juego.html?dificultad=facil'">FÁCIL</button>
+                <span class="btn-descripcion">9×9 · 10 minas</span>
+            </div>
+            <div class="btn-dificultad-grupo">
+                <button class="btn-jugar" onclick="window.location.href='juego.html?dificultad=dificil'">DIFÍCIL</button>
+                <span class="btn-descripcion">16×16 · 40 minas</span>
+            </div>
+        </div>
+
+        <footer class="pie">Catalina Aquino · 2026</footer>
+    </div>
+</body>
+</html>

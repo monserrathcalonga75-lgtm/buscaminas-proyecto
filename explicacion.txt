@@ -1,0 +1,155 @@
+============================================================
+   BUSCAMINAS - EXPLICACION DEL FUNCIONAMIENTO
+   Catalina Aquino - 2026
+============================================================
+
+DESCRIPCION GENERAL
+--------------------
+El Buscaminas es un juego de logica donde el objetivo es
+revelar todas las celdas de una grilla 9x9 sin pisar
+ninguna de las 10 minas ocultas.
+
+
+ESTRUCTURA DEL PROYECTO
+------------------------
+buscaminas/
+  index.html        -> Pantalla de portada (inicio)
+  juego.html        -> Pantalla del juego
+  css/
+    portada.css     -> Estilos de la portada
+    juego.css       -> Estilos del juego
+  js/
+    juego.js        -> Toda la logica del juego
+
+
+COMO SE JUEGA
+--------------
+1. Al abrir index.html aparece la portada con el boton JUGAR.
+2. Al hacer clic en JUGAR se abre la pantalla del juego.
+3. Clic izquierdo sobre una celda: la revela.
+   - Si tiene una mina: perdiste, se muestra el mensaje de derrota.
+   - Si tiene un numero (1-8): indica cuantas minas hay en
+     las 8 celdas vecinas.
+   - Si esta vacia (0 minas vecinas): se revelan automaticamente
+     todas las celdas vacias adyacentes (flood fill).
+4. Clic derecho sobre una celda: coloca o quita una bandera
+   para marcar donde crees que hay una mina.
+5. Ganas cuando revelas todas las celdas que NO son minas.
+6. Si el primer clic cae en una mina, esta se reubica
+   automaticamente para que no pierdas de entrada.
+
+
+QUE SON LAS BANDERAS ROJAS (🚩)
+----------------------------------
+Las banderas son una herramienta de ayuda para el jugador.
+Sirven para:
+  - Marcar las celdas donde CREES que hay una mina oculta.
+  - Protegerte de hacer clic accidental en una mina, ya que
+    una celda con bandera no se puede revelar con clic izquierdo.
+  - Llevar un registro visual de las minas que vas identificando.
+  - El contador de minas en la barra superior se actualiza
+    restando la cantidad de banderas colocadas.
+
+Como usarlas:
+  - Clic derecho sobre una celda oculta = colocar bandera 🚩
+  - Clic derecho sobre una celda con bandera = quitar bandera
+  - NO es obligatorio usarlas para ganar, son solo una ayuda.
+  - Podes colocar banderas en cualquier celda oculta, incluso
+    si no tiene mina (pero no es recomendable).
+
+
+COMO FUNCIONA LA LOGICA (juego.js)
+------------------------------------
+
+1) GENERAR TABLERO - generarTablero()
+   - Crea una matriz de 9x9 con objetos celda.
+   - Cada celda tiene: esMina, vecinos, revelada, bandera, elemento.
+   - Genera los 81 divs en el HTML y les asigna los eventos
+     de clic izquierdo y clic derecho.
+
+2) COLOCAR MINAS - colocarMinas()
+   - Elige 10 posiciones aleatorias unicas en la grilla.
+   - Marca esas celdas con esMina = true.
+
+3) CALCULAR VECINOS - calcularVecinos()
+   - Para cada celda que NO es mina, cuenta cuantas minas
+     hay en sus 8 celdas adyacentes (arriba, abajo, izquierda,
+     derecha y las 4 diagonales).
+   - Guarda ese numero en celda.vecinos.
+
+4) REVELAR CELDA - revelarCelda(fila, col)
+   - Si el juego no esta activo o la celda ya fue revelada
+     o tiene bandera, no hace nada.
+   - En el primer clic se inicia el cronometro.
+   - Si la celda es mina, llama a gameOver().
+   - Si tiene vecinos > 0, muestra el numero con su color.
+   - Si tiene vecinos = 0, llama a revelarAdyacentes() para
+     abrir automaticamente las celdas vacias conectadas.
+
+5) FLOOD FILL - revelarAdyacentes(fila, col)
+   - Funcion recursiva que revela las 8 celdas vecinas.
+   - Si una celda vecina tambien tiene 0 minas alrededor,
+     sigue expandiendose recursivamente.
+   - Se detiene cuando encuentra celdas con numeros, banderas,
+     minas o bordes de la grilla.
+
+6) COLOCAR BANDERA - colocarBandera(fila, col)
+   - Alterna entre poner y quitar la bandera en una celda.
+   - Actualiza el contador de minas restantes en la pantalla.
+   - Una celda con bandera no se puede revelar con clic
+     izquierdo (proteccion contra clics accidentales).
+
+7) VERIFICAR VICTORIA - verificarVictoria()
+   - Cuenta las celdas reveladas.
+   - Si son iguales a 81 (total) - 10 (minas) = 71,
+     el jugador gano.
+   - Detiene el cronometro y muestra el overlay de victoria.
+
+8) GAME OVER - gameOver(fila, col)
+   - La celda que exploto se pone en rojo con el emoji de
+     explosion.
+   - Se revelan todas las demas minas en gris con el emoji
+     de bomba.
+   - Se detiene el cronometro y aparece el overlay de derrota.
+
+9) CRONOMETRO
+   - Arranca cuando el jugador hace su primer clic.
+   - Cuenta los segundos y los muestra en formato MM:SS.
+   - Se detiene al ganar o perder.
+
+10) REINICIAR - reiniciar()
+    - Detiene el cronometro.
+    - Oculta el overlay.
+    - Vuelve a generar un tablero nuevo sin recargar la pagina.
+    - Se puede reiniciar con el emoji del encabezado o con
+      el boton del overlay.
+
+
+COLORES DE LOS NUMEROS
+------------------------
+  1 -> Azul
+  2 -> Verde
+  3 -> Rojo
+  4 -> Azul oscuro
+  5 -> Rojo oscuro
+  6 -> Verde azulado
+  7 -> Negro
+  8 -> Gris
+
+
+COMPATIBILIDAD
+---------------
+El juego funciona en todos los navegadores modernos:
+  - Google Chrome
+  - Mozilla Firefox
+  - Microsoft Edge
+  - Safari
+  - Opera
+
+Tecnologias utilizadas:
+  - HTML5
+  - CSS3 (con prefijos de compatibilidad -webkit, -moz, -ms)
+  - JavaScript puro (sin librerias externas)
+
+
+============================================================

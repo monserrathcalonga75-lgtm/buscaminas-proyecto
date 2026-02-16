@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Buscaminas - Juego</title>
+    <link rel="stylesheet" href="css/juego.css">
+</head>
+<body>
+    <div class="encabezado">
+        <span id="contadorMinas">💣</span>
+        <button id="btnReiniciar" class="btn-emoji">😊</button>
+        <span id="cronometro">⏱ 00:00</span>
+    </div>
+
+    <div class="tablero-wrapper">
+        <div id="grilla" class="grilla"></div>
+
+        <div id="overlay" class="overlay">
+            <p id="overlayTitulo" class="overlay-titulo"></p>
+            <p id="overlayTiempo" class="overlay-tiempo"></p>
+            <button id="btnOverlay" class="btn-overlay">🔄 REINICIAR</button>
+        </div>
+    </div>
+
+    <script src="js/juego.js"></script>
+</body>
+</html>
